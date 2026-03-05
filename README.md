@@ -40,9 +40,18 @@ A premium Flask-based SMS bridging application that connects to an Android devic
 
 ## Running the Application
 
+### Development Mode
 ```bash
 python3 app.py
 ```
+
+### Production Mode (PM2 + Gunicorn)
+To keep the application running in the background with a production-grade server ([Gunicorn](https://gunicorn.org/)), use PM2:
+```bash
+pm2 start "gunicorn --bind 0.0.0.0:5000 app:app" --name sms-service --interpreter .venv/bin/python3
+```
+To check logs: `pm2 logs sms-service`
+
 The application will be available at `http://localhost:5000`.
 
 ## API Documentation
