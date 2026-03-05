@@ -115,7 +115,7 @@ curl -X POST https://dev-link.cloud/sms/api/send \
             const formData = new FormData(e.target);
 
             try {
-                const response = await fetch('/send-sms', {
+                const response = await fetch('/sms/send-sms', {
                     method: 'POST',
                     body: formData
                 });
