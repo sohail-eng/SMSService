@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+google-services.json
+# Note: google-services.json is ignored for security, but required for the app to run.

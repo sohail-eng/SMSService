@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Service | Premium Bridging Solution</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SMS Service</h1>
+            <p class="subtitle">Bridge your messages through your Android device seamlessly.</p>
+        </header>
+
+        <div class="grid">
+            <!-- Instructions Column -->
+            <div class="card">
+                <h2>How to Connect</h2>
+                
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Download APK</strong>
+                        <p>Get our latest Android application to enable bridging.</p>
+                        <a href="/download-apk" class="download-btn">Download v1.0.0</a>
+                    </div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Install & Open</strong>
+                        <p>Install the APK on your Android device and launch it.</p>
+                    </div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>Get Unique Key</strong>
+                        <p>The app will display a unique key. Note this down for sending messages.</p>
+                    </div>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>Keep App Running</strong>
+                        <p>Ensure the app stays active in the background to process incoming SMS requests.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="card">
+                <h2>Send a Message</h2>
+                <form id="smsForm">
+                    <div class="form-group">
+                        <label for="unique_key">Device Unique Key</label>
+                        <input type="text" id="unique_key" name="unique_key" placeholder="Enter key from APK" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Pakistan Phone Number</label>
+                        <input type="tel" id="phone_number" name="phone_number" placeholder="e.g. 03451234567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Type your SMS here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">Send SMS Now</button>
+                    <div id="status"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- API Section -->
+        <div class="card api-section">
+            <h2>Integrate with REST API</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Integrate this service directly into your own applications using our simple endpoint.</p>
+            
+            <p style="margin-bottom: 0.5rem;"><strong>Endpoint:</strong> <code>POST /api/send</code></p>
+            
+            <pre>
+curl -X POST http://localhost:5000/api/send \
+-H "Content-Type: application/json" \
+-d '{
+  "unique_key": "YOUR_KEY",
+  "phone_number": "03451234567",
+  "message": "Hello from API!"
+}'</pre>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('smsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('status');
+            
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
+            status.style.display = 'none';
+
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/send-sms', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                status.style.display = 'block';
+                if (result.success) {
+                    status.className = 'success';
+                    status.innerText = result.message;
+                    e.target.reset();
+                } else {
+                    status.className = 'error';
+                    status.innerText = result.error || 'Something went wrong';
+                }
+            } catch (err) {
+                status.style.display = 'block';
+                status.className = 'error';
+                status.innerText = 'Failed to connect to server';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Send SMS Now';
+            }
+        });
+    </script>
+</body>
+</html>
