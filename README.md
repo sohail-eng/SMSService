@@ -52,7 +52,7 @@ pm2 start "gunicorn --bind 0.0.0.0:5000 app:app" --name sms-service --interprete
 ```
 To check logs: `pm2 logs sms-service`
 
-The application will be available at `http://localhost:5000`.
+The application will be available at `http://localhost:5000/sms/`.
 
 ## API Documentation
 

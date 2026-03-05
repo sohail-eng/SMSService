@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -20,13 +22,13 @@
             <!-- Instructions Column -->
             <div class="card">
                 <h2>How to Connect</h2>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">1</div>
                     <div>
                         <strong>Download APK</strong>
                         <p>Get our latest Android application to enable bridging.</p>
-                        <a href="/download-apk" class="download-btn">Download v1.0.0</a>
+                        <a href="/sms/download-apk" class="download-btn">Download v1.0.0</a>
                     </div>
                 </div>
 
@@ -71,7 +73,8 @@
 
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Type your SMS here..." required></textarea>
+                        <textarea id="message" name="message" rows="4" placeholder="Type your SMS here..."
+                            required></textarea>
                     </div>
 
                     <button type="submit" class="btn-submit" id="submitBtn">Send SMS Now</button>
@@ -83,12 +86,13 @@
         <!-- API Section -->
         <div class="card api-section">
             <h2>Integrate with REST API</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Integrate this service directly into your own applications using our simple endpoint.</p>
-            
-            <p style="margin-bottom: 0.5rem;"><strong>Endpoint:</strong> <code>POST /api/send</code></p>
-            
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Integrate this service directly into your own
+                applications using our simple endpoint.</p>
+
+            <p style="margin-bottom: 0.5rem;"><strong>Endpoint:</strong> <code>POST /sms/api/send</code></p>
+
             <pre>
-curl -X POST http://localhost:5000/api/send \
+curl -X POST http://localhost:5000/sms/api/send \
 -H "Content-Type: application/json" \
 -d '{
   "unique_key": "YOUR_KEY",
@@ -103,21 +107,21 @@ curl -X POST http://localhost:5000/api/send \
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             const status = document.getElementById('status');
-            
+
             btn.disabled = true;
             btn.innerText = 'Sending...';
             status.style.display = 'none';
 
             const formData = new FormData(e.target);
-            
+
             try {
-                const response = await fetch('/send-sms', {
+                const response = await fetch('/sms/send-sms', {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 const result = await response.json();
-                
+
                 status.style.display = 'block';
                 if (result.success) {
                     status.className = 'success';
@@ -138,4 +142,5 @@ curl -X POST http://localhost:5000/api/send \
         });
     </script>
 </body>
+
 </html>

@@ -51,15 +51,15 @@ def push_to_firebase(parent_id, number, text):
         print(f"Firebase Push Error: {e}")
         return False
 
-@app.route('/')
+@app.route('/sms/')
 def index():
     return render_template('index.html')
 
-@app.route('/download-apk')
+@app.route('/sms/download-apk')
 def download_apk():
     return send_from_directory(directory=os.getcwd(), path='base.apk', as_attachment=True)
 
-@app.route('/send-sms', methods=['POST'])
+@app.route('/sms/send-sms', methods=['POST'])
 def send_sms():
     parent_id = request.form.get('unique_key')
     number = request.form.get('phone_number')
@@ -80,7 +80,7 @@ def send_sms():
     else:
         return jsonify({"success": False, "error": "Failed to connect to Firebase"}), 500
 
-@app.route('/api/send', methods=['POST'])
+@app.route('/sms/api/send', methods=['POST'])
 def api_send():
     data = request.get_json()
     

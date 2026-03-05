@@ -6,7 +6,7 @@ The SMS Service provides a simple REST API to queue SMS requests that will be se
 
 Queues an SMS to be sent to a Pakistani phone number.
 
-- **URL:** `/api/send`
+- **URL:** `/sms/api/send`
 - **Method:** `POST`
 - **Content-Type:** `application/json`
 
@@ -55,7 +55,7 @@ Queues an SMS to be sent to a Pakistani phone number.
 ```python
 import requests
 
-url = "http://localhost:5000/api/send"
+url = "http://localhost:5000/sms/api/send"
 data = {
     "unique_key": "YOUR_DEVICE_KEY",
     "phone_number": "03451234567",
@@ -69,7 +69,7 @@ print(response.json())
 ### Curl
 
 ```bash
-curl -X POST http://localhost:5000/api/send \
+curl -X POST http://localhost:5000/sms/api/send \
 -H "Content-Type: application/json" \
 -d '{
   "unique_key": "3099486",
