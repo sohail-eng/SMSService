@@ -28,7 +28,7 @@
                     <div>
                         <strong>Download APK</strong>
                         <p>Get our latest Android application to enable bridging.</p>
-                        <a href="/sms/download-apk" class="download-btn">Download v1.0.0</a>
+                        <a href="/download-apk" class="download-btn">Download v1.0.0</a>
                     </div>
                 </div>
 
@@ -89,10 +89,10 @@
             <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Integrate this service directly into your own
                 applications using our simple endpoint.</p>
 
-            <p style="margin-bottom: 0.5rem;"><strong>Endpoint:</strong> <code>POST /sms/api/send</code></p>
+            <p style="margin-bottom: 0.5rem;"><strong>Endpoint:</strong> <code>POST /api/send</code></p>
 
             <pre>
-curl -X POST http://localhost:5000/sms/api/send \
+curl -X POST http://localhost:5000/api/send \
 -H "Content-Type: application/json" \
 -d '{
   "unique_key": "YOUR_KEY",
@@ -115,7 +115,7 @@ curl -X POST http://localhost:5000/sms/api/send \
             const formData = new FormData(e.target);
 
             try {
-                const response = await fetch('/sms/send-sms', {
+                const response = await fetch('/send-sms', {
                     method: 'POST',
                     body: formData
                 });
